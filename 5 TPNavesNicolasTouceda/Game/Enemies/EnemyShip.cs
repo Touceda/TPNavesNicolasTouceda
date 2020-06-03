@@ -65,7 +65,7 @@ namespace Game
 
         private Image LoadImage()
         {
-            Image[] ships = Spritesheet.Load(@"Resources\shipsheetparts.png", new Size(200, 200));
+            Image[] ships = Spritesheet.Load(@"Resources\shipsheetparts.png", new Size(200, 200));//Es png?
             foreach (Image img in ships)
             {
                 img.RotateFlip(RotateFlipType.Rotate270FlipNone);

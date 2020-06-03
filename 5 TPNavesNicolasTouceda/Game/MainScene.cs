@@ -70,5 +70,10 @@ namespace Game
                 tally.DrawDurations.LastOrDefault(), tally.AverageDraw, tally.MaxDraw,
                 tally.Count, tally.InstanceCounter.LastOrDefault(), Environment.TickCount - startTime);
         }
+
+        private void scene_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
