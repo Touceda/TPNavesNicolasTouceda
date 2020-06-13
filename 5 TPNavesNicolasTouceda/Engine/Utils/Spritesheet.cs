@@ -10,7 +10,7 @@ namespace Engine.Utils
 {
     public class Spritesheet
     {
-        public static Image[] Load(string fileName, Size size)
+        public static Image[] Load(string fileName, Size size)//Devuelve un array de imagenes con sus nombres
         {
             return new Spritesheet(fileName).CutPieces(size);
         }
@@ -29,9 +29,19 @@ namespace Engine.Utils
             this.original = original;
         }
 
-        public Image[] CutPieces(Size size)
+
+
+
+        private bool LasPiesasYaFueronRecortadas = false;
+        private List<Image> pieces = new List<Image>();
+
+        public Image[] CutPieces(Size size)//crea bitmaps con las imagenes y las devuelve
         {
-            List<Image> pieces = new List<Image>();
+            if (LasPiesasYaFueronRecortadas == true) 
+            {
+                return pieces.ToArray();
+            }
+
             int rows = original.Width / size.Width;
             int cols = original.Height / size.Height;
             for (int j = 0; j < cols; j++)
@@ -44,10 +54,11 @@ namespace Engine.Utils
                         new Rectangle(0, 0, size.Width, size.Height),
                         new Rectangle(i * size.Width, j * size.Height, size.Width, size.Height),
                         GraphicsUnit.Pixel);
-                    graphics.Dispose();
+                    //graphics.Dispose();
                     pieces.Add(temp);
                 }
             }
+            LasPiesasYaFueronRecortadas = true;
             return pieces.ToArray();
         }
     }

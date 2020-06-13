@@ -60,5 +60,10 @@ namespace Engine.Profiling
                 }
             }
         }
+
+        private void scene_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

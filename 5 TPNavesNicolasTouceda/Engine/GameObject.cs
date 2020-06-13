@@ -18,7 +18,7 @@ namespace Engine
         private EventHandler eventHandler = new EventHandler();
         private bool visible = true;
 
-        public List<GameObject> Children
+        public List<GameObject> Children //Devuelve una lista de objetos
         {
             get { return children; }
         }
@@ -38,7 +38,7 @@ namespace Engine
                 }
                 return result;
             }
-        }
+        }//devuelve una nueva lista con todos los children (Revisar)
 
         public IEnumerable<GameObject> AllObjects
         {
@@ -59,18 +59,18 @@ namespace Engine
             get { return parent != null ? parent.Root : this; }
         }
 
-        public EventHandler EventHandler
+        public EventHandler EventHandler//Evento event handler
         {
             get { return eventHandler; }
         }
 
-        public bool Visible
+        public bool Visible//Guarda un bool para saber si es visible o no
         {
             get { return visible; }
             set { visible = value; }
         }
 
-        public Bitmap Image
+        public Bitmap Image //Propiedad devuelve una Image que manda a recortar y dibujar
         {
             get
             {
@@ -83,25 +83,25 @@ namespace Engine
             }
         }
 
-        public RectangleF Bounds
+        public RectangleF Bounds// propiedad de mis bounds
         {
             get { return bounds; }
             set { bounds = value; }
         }
 
-        public float X
+        public float X //Mi posicion x
         {
             get { return Left; }
             set { Left = value; }
         }
 
-        public float Y
+        public float Y //Mi posicion y
         {
             get { return Top; }
             set { Top = value; }
         }
 
-        public float Left
+        public float Left// Mi posicion x
         {
             get { return bounds.Left; }
             set { Position = new PointF(value, Top); }
@@ -113,7 +113,7 @@ namespace Engine
             set { Position = new PointF(value - Width, Top); }
         }
 
-        public float Top
+        public float Top //Mi posicion y
         {
             get { return bounds.Top; }
             set { Position = new PointF(Left, value); }
@@ -125,19 +125,19 @@ namespace Engine
             set { Position = new PointF(Left, value - Height); }
         }
 
-        public PointF Position
+        public PointF Position//Mi posicion
         {
             get { return new PointF(Left, Top); }
             set { MoveDelta(value.X - X, value.Y - Y); }
         }
 
-        public PointF Center
+        public PointF Center//Mi centro del objeto
         {
             get { return new PointF(Position.X + Width / 2, Position.Y + Height / 2); }
             set { Position = new PointF(value.X - Width / 2, value.Y - Height / 2); }
         }
 
-        public PointF TopLeft
+        public PointF TopLeft//mas posiciones
         {
             get { return Position; }
             set { Position = value; }
@@ -207,13 +207,17 @@ namespace Engine
             set { bounds = new RectangleF(bounds.Left, bounds.Top, bounds.Width, value); }
         }
 
+
+
+        //metodos por revisar
+
         protected void MoveDelta(float x, float y)
         {
             bounds = new RectangleF(bounds.Left + x, bounds.Top + y, bounds.Width, bounds.Height);
             children.ForEach((m) => m.MoveDelta(x, y));
         }
         
-        public void AddChild(GameObject child)
+        public void AddChild(GameObject child)// Añade objetos a la lista Child y guarda el objeto como Parent
         {
             children.Add(child);
             child.Parent = this;

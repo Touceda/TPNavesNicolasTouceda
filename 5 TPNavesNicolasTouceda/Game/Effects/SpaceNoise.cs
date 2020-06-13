@@ -12,11 +12,11 @@ namespace Game
 {
     public class SpaceNoise : GameObject
     {
-        private Image image;
-        float speed;
-        float scale;
-        bool flipX;
-        bool flipY;
+        private Image image; //Conoce su propia imagen
+        float speed; //Tiene una velocidad
+        float scale; //Tiene una Escala (No se utiliza nunca?)
+        bool flipX; //Da la vuelta en X 
+        bool flipY; //Da la vuelta en Y 
 
         public SpaceNoise(Image image, float speed, float scale, bool flipX, bool flipY)
         {

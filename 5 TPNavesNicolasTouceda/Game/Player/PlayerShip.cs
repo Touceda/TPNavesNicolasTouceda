@@ -18,7 +18,7 @@ namespace Game
         public static readonly float MIN_SPEED = 200;
         public static readonly float MAX_SPEED = 500;
 
-        private int shipIndex;
+        private int shipIndex;//33
         private PointF direction = new PointF(0, 0);
         private HashSet<Keys> pressedKeys = new HashSet<Keys>();
         private Cannon cannon;
@@ -29,7 +29,7 @@ namespace Game
         public PlayerShip(int shipIndex)
         {
             this.shipIndex = shipIndex;
-            LoadImage();
+            MiImagen = LoadImage();
 
             EventHandler.KeyDown += OnKeyDown;
             EventHandler.KeyUp += OnKeyUp;
@@ -174,19 +174,19 @@ namespace Game
                 cannon.Shoot();
             }
         }
-        
-        public override void DrawOn(Graphics graphics)
+
+
+
+        Image MiImagen;
+        public override void DrawOn(Graphics graphics)//Manda a dibujarme
         {
-            graphics.DrawImage(LoadImage(), Bounds);
+            graphics.DrawImage(MiImagen, Bounds);
         }
         
-        private Image LoadImage()
+        private Image LoadImage()//Carga las imagenes y me devuelve la mia
         {
             Image[] ships = Spritesheet.Load(@"Resources\shipsheetparts.png", new Size(200, 200));
-            foreach (Image img in ships)
-            {
-                img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-            }
+            ships[shipIndex].RotateFlip(RotateFlipType.Rotate270FlipNone);
             Image result = ships[shipIndex];
             result.RotateFlip(RotateFlipType.RotateNoneFlipX);
             Extent = new SizeF(result.Size.Width / 2, result.Size.Height / 2);

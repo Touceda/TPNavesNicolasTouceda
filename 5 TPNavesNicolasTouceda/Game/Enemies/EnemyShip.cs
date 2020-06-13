@@ -19,6 +19,7 @@ namespace Game
         
         public EnemyShip(int shipIndex, EnemyBehavior behavior)
         {
+            MiImagen = LoadImage();//Va a guardar mi Imagen de este objeto particular
             this.shipIndex = shipIndex;
             this.behavior = behavior;
             
@@ -58,18 +59,16 @@ namespace Game
             Delete();
         }
 
+
+        Image MiImagen;
         public override void DrawOn(Graphics graphics)
         {
-            graphics.DrawImage(LoadImage(), Bounds);
+            graphics.DrawImage(MiImagen, Bounds);
         }
-
         private Image LoadImage()
         {
             Image[] ships = Spritesheet.Load(@"Resources\shipsheetparts.png", new Size(200, 200));//Es png?
-            foreach (Image img in ships)
-            {
-                img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-            }
+            ships[shipIndex].RotateFlip(RotateFlipType.Rotate270FlipNone);
             Image result = ships[shipIndex];
             Extent = new SizeF(result.Size.Width / 2, result.Size.Height / 2);
             return result;
