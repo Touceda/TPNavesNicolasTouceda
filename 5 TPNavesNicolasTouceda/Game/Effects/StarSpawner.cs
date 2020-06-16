@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 using Engine.Extensions;
 using Engine;
+using System.Drawing;
 
 namespace Game
 {
-    public class StarSpawner : GameObject
+    public class StarSpawner : GameObject //Esta clase crea las estrellas 
     {
         private Random rnd = new Random();
         private bool firstFrame = true;
@@ -38,12 +39,12 @@ namespace Game
             }
         }
 
+        Image StarImag = Properties.Resources.star;
         public void SpawnStar()
         {
-            Star star = new Star(Properties.Resources.star, rnd.Next(300));
+            Star star = new Star(StarImag, rnd.Next(300));//Para mejorar puedo guardan un array de de estrellas ya dibujadas y depende el random, le doy una u otra
             star.Center = Center;
-            Parent.AddChildBack(star);
-
+            Parent.AddStars(star);
             CenterY = rnd.Next(Parent.Top.RoundedToInt(), Parent.Bottom.RoundedToInt());
         }
 

@@ -8,6 +8,7 @@ using System.Drawing;
 using Engine;
 
 using Engine.Extensions;
+using System.IO.Compression;
 
 namespace Game
 {
@@ -26,8 +27,13 @@ namespace Game
             Visible = false;
         }
 
-        public override void Update(float deltaTime)
+        public override void UpdateStar(float deltaTime)
         {
+            if (Position.X <= 0 || Position.Y <= 0)//Si mi posicion esta fuera del mundo (0)
+            {
+                saliDeEscena = true;
+                return;
+            }
             X -= speed * deltaTime;
             Visible = true;
         }

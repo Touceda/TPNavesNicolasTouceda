@@ -7,11 +7,17 @@ using Engine.Events;
 using Engine.Extensions;
 using System.IO;
 using NAudio.Wave;
+using System.Threading;
+
 
 namespace Engine
 {
     public class GameObject
     {
+        public List<GameObject> StarList = new List<GameObject>();
+        public bool saliDeEscena = false;
+
+
         private List<GameObject> children = new List<GameObject>();
         private GameObject parent;
         private RectangleF bounds = new RectangleF(0, 0, 30, 40);
@@ -23,7 +29,7 @@ namespace Engine
             get { return children; }
         }
 
-        public IEnumerable<GameObject> AllChildren
+        public IEnumerable<GameObject> AllChildren //lo puedo modificar para que simplemente devuelva children
         {
             get
             {
@@ -208,7 +214,6 @@ namespace Engine
         }
 
 
-
         //metodos por revisar
 
         protected void MoveDelta(float x, float y)
@@ -223,10 +228,9 @@ namespace Engine
             child.Parent = this;
         }
 
-        public void AddChildBack(GameObject child)
+        public void AddStars(GameObject Star)//
         {
-            children.Insert(0, child);
-            child.Parent = this;
+            StarList.Add(Star);
         }
 
         public void AddChildren(IEnumerable<GameObject> children)
@@ -242,6 +246,14 @@ namespace Engine
             children.Remove(child);
             child.Parent = null;
         }
+
+        public void RemoveStar()//
+        {
+           var newListStar = StarList.Where((x => x.saliDeEscena == false)).ToList() ;
+            StarList = newListStar;
+
+        }
+
 
         public void Delete()
         {
@@ -340,11 +352,41 @@ namespace Engine
             // Do nothing. Subclasses should override
         }
 
-        internal void FullUpdate(float deltaTime, bool world = false)
+        public virtual void UpdateStar(float deltaTime)
+        {
+            // Do nothing. Subclasses should override
+        }
+
+        internal void FullUpdate(float deltaTime, bool world = false)//La manera en la que se actualiza es muy mala, es mejor un foreach
         {
             if (Parent == null && !world) return;
             Update(deltaTime);
             children.ToList().ForEach((m) => m.FullUpdate(deltaTime));
+
+            
+        }
+
+        internal void UpdateStars(float deltaTime)
+        {
+
+            foreach (var star in StarList)
+            {
+                star.UpdateStar(deltaTime);
+            }
+            RemoveStar();
+            //if (StarList != null) 
+            //{
+            //    StarArray.ToList().ForEach((m) => m.UpdateStar(deltaTime));
+            //    RemoveStar();
+            //}
+
+            //var ListaSuplente = StarsList;
+            //for (int i = 0; i < ListaSuplente.Count; i++)
+            //{
+            //    //Arreglar el Remove Estrellas y el codigo funciona
+            //}
+
+            
         }
 
         internal void FullDrawOn(Graphics graphics)

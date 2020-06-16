@@ -44,7 +44,7 @@ namespace Engine
                 true);
         }
 
-        private void Scene_Paint(object sender, PaintEventArgs e)
+        private void Scene_Paint(object sender, PaintEventArgs e)// Aca se actualiza la parte grafica? 
         {
             tally.RegisterDraw();
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -53,15 +53,16 @@ namespace Engine
             world.FullDrawOn(e.Graphics);
         }
 
-        private void steppingTimer_Tick(object sender, EventArgs e)
+        private void steppingTimer_Tick(object sender, EventArgs e) //Actualiza el mundo y actualiza el Tally
         {
             float now = Environment.TickCount;
             float delta = (now - lastStep) / 1000;
             if (delta > 0)
             {
                 tally.RegisterUpdate();
-                tally.RegisterInstances(world.AllChildren.LongCount());
+                tally.RegisterInstances(world.AllChildren.LongCount(), world.StarList.LongCount()) ;//Recibe la cantidad de instancias en AllChildren
                 world.FullUpdate(delta, true);
+                world.UpdateStars(delta);
                 lastStep = now;
                 Refresh();
             }

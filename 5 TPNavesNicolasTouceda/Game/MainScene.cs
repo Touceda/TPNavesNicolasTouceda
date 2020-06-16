@@ -34,8 +34,8 @@ namespace Game
                     Properties.Resources.space_noise_2,
                     Properties.Resources.space_noise_3
                 };
-
-                world.AddChild(new SpaceNoise(noise[0], 3 * 1.5f, 1.00f, false, false));//
+                //Añade las imagenes a la lista de objetos del mundo
+                world.AddChild(new SpaceNoise(noise[0], 3 * 1.5f, 1.00f, false, false));
                 world.AddChild(new SpaceNoise(noise[0], 3 * 2.5f, 2.00f, true, true));
                 world.AddChild(new SpaceNoise(noise[1], 3 * 3.5f, 1.50f, false, true));
                 world.AddChild(new SpaceNoise(noise[2], 3 * 5.5f, 2.00f, true, false));
@@ -43,7 +43,7 @@ namespace Game
 
             world.AddChild(new StarSpawner());
 
-            EnemySpawner[] spawners = new EnemySpawner[]
+            EnemySpawner[] spawners = new EnemySpawner[]//un array que guarda spawners de enemigos
             {
                 new EnemySpawner(0,  500, new FuncBehavior(x => Math.Sin(x * 10) * 0.9, 175)),
                 new EnemySpawner(11, 500, new FollowPlayerBehavior(200)),
@@ -53,16 +53,17 @@ namespace Game
                 new EnemySpawner(63, 500, new FuncBehavior(x => Math.Atan(x * 10 - 5) * -0.5, 200)),
                 new EnemySpawner(54, 500, new FuncBehavior(x => (Math.Sin((x + 1) * 10 + 15) - Math.Sin((x + 1) * 15)) * 0.2 - 0.4, 300)),
             };
-            world.AddChildren(spawners);
-            world.AddChild(new EnemySpawnerDirector(spawners));
+            world.AddChildren(spawners);//Añado los elementos del spawner
+            world.AddChild(new EnemySpawnerDirector(spawners));//añado el spawner en si
 
+            //Crea el player setea su configuracion y lo agrega al mundo
             PlayerShip player = new PlayerShip(33);
             player.CenterY = world.CenterY;
             player.Left = world.Left + 100;
             world.AddChild(player);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)//Timer tick que actualiza la tabla de datos
         {
             Tally tally = scene.Tally;
             Text = string.Format("Time: {8} ms - Frames: {6} - Update: current({0:0.00} ms), avg({1:0.00} ms), max({2:0.00} ms) - Drawing: current({3:0.00} ms), avg({4:0.00} ms), max({5:0.00} ms) - Instances: {7}",
@@ -71,7 +72,7 @@ namespace Game
                 tally.Count, tally.InstanceCounter.LastOrDefault(), Environment.TickCount - startTime);
         }
 
-        private void scene_Load(object sender, EventArgs e)
+        private void scene_Load(object sender, EventArgs e)//No hace nada?
         {
 
         }
