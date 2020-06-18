@@ -396,6 +396,11 @@ namespace Engine
                     obj.DrawOn(graphics);               
             }
 
+            foreach (var star in StarList)
+            {
+                star.DrawOn(graphics);
+            }
+
             //if (!visible) return;
             //DrawOn(graphics);
             ////DrawBoundsOn(graphics);
