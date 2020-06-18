@@ -361,9 +361,7 @@ namespace Engine
         {
             if (Parent == null && !world) return;
             Update(deltaTime);
-            children.ToList().ForEach((m) => m.FullUpdate(deltaTime));
-
-            
+            children.ToList().ForEach((m) => m.FullUpdate(deltaTime));    
         }
 
         internal void UpdateStars(float deltaTime)
@@ -392,13 +390,15 @@ namespace Engine
         internal void FullDrawOn(Graphics graphics)
         {
             foreach (var obj in children)
-            {           
-                    obj.DrawOn(graphics);               
+            {
+                obj.DrawOn(graphics);
+                //obj.DrawBoundsOn(graphics);
             }
 
             foreach (var star in StarList)
             {
                 star.DrawOn(graphics);
+                //star.DrawBoundsOn(graphics);
             }
 
             //if (!visible) return;
@@ -407,7 +407,7 @@ namespace Engine
             //children.ForEach((m) => m.FullDrawOn(graphics));
         }
 
-        private void DrawBoundsOn(Graphics graphics)
+        private void DrawBoundsOn(Graphics graphics)//Dibuja la HitBox del personaje
         {
             graphics.DrawRectangle(Pens.Red, X, Y, Width, Height);
         }

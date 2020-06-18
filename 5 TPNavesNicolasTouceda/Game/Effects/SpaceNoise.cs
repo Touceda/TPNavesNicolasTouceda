@@ -25,7 +25,6 @@ namespace Game
             this.flipX = flipX;
             this.flipY = flipY;
             this.image = image;
-
             Extent = new SizeF(image.Width * scale, image.Height * scale);
         }
 
@@ -53,10 +52,14 @@ namespace Game
 
         public void FillScreenTiled(Graphics graphics)
         {
+            //Redondeo el numero
             int w = Width.RoundedToInt();
             int h = Height.RoundedToInt();
             int x = Position.X.RoundedToInt();
             int y = Position.Y.RoundedToInt();
+
+            this.image = new Bitmap(image, new Size(w, h));//Ajusto mi imagen, segun mi ancho y alto
+
             while (x >= Parent.Left) { x -= w; }
             while (y >= Parent.Top) { y -= h; }
 
@@ -64,12 +67,11 @@ namespace Game
             {
                 for (int y1 = y; y1 <= Parent.Bottom; y1 += h)
                 {
-                    var img = new Bitmap(image, new Size(w, h));
-                    if (flipX) { img.RotateFlip(RotateFlipType.RotateNoneFlipX); }
-                    if (flipY) { img.RotateFlip(RotateFlipType.RotateNoneFlipY); }
-                    graphics.DrawImage(img, new Point(x1, y1));
+                    //if (flipX) { image.RotateFlip(RotateFlipType.RotateNoneFlipX); }//Roto las imagenes
+                    //if (flipY) { image.RotateFlip(RotateFlipType.RotateNoneFlipY); }//Roto las imagenes
+                    graphics.DrawImage(image, new Point(x1, y1));
                 }
             }
-        }
+        }        
     }
 }
