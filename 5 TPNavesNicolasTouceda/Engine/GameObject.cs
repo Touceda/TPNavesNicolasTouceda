@@ -22,7 +22,7 @@ namespace Engine
         private GameObject parent;
         private RectangleF bounds = new RectangleF(0, 0, 30, 40);
         private EventHandler eventHandler = new EventHandler();
-        private bool visible = true;
+        private bool visible = true;//Eliminar?
 
         public List<GameObject> Children //Devuelve una lista de objetos
         {
@@ -391,10 +391,15 @@ namespace Engine
 
         internal void FullDrawOn(Graphics graphics)
         {
-            if (!visible) return;
-            DrawOn(graphics);
-            //DrawBoundsOn(graphics);
-            children.ForEach((m) => m.FullDrawOn(graphics));
+            foreach (var obj in children)
+            {           
+                    obj.DrawOn(graphics);               
+            }
+
+            //if (!visible) return;
+            //DrawOn(graphics);
+            ////DrawBoundsOn(graphics);
+            //children.ForEach((m) => m.FullDrawOn(graphics));
         }
 
         private void DrawBoundsOn(Graphics graphics)
