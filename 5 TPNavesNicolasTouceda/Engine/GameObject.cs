@@ -359,9 +359,14 @@ namespace Engine
 
         internal void FullUpdate(float deltaTime, bool world = false)//La manera en la que se actualiza es muy mala, es mejor un foreach
         {
+            //foreach (var chill in children)
+            //{
+            //    chill.Update(deltaTime);
+            //}
+
             if (Parent == null && !world) return;
             Update(deltaTime);
-            children.ToList().ForEach((m) => m.FullUpdate(deltaTime));    
+            children.ToList().ForEach((m) => m.FullUpdate(deltaTime));
         }
 
         internal void UpdateStars(float deltaTime)

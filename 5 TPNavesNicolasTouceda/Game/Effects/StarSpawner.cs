@@ -17,17 +17,18 @@ namespace Game
 
         public override void Update(float deltaTime)
         {
-            if (firstFrame)
-            {
-                firstFrame = false;
-                FillSpace(1000);
-            }
+                if (firstFrame)
+                {
+                    firstFrame = false;
+                    FillSpace(1000);
+                }
 
-            Left = Parent.Right;
-            for (int i = 0; i < 200 * deltaTime; i++)
-            {
-                SpawnStar();
-            }
+                Left = Parent.Right;
+                for (int i = 0; i < 200 * deltaTime; i++)
+                {
+                    SpawnStar();
+                }
+               
         }
 
         private void FillSpace(int numberOfStars)

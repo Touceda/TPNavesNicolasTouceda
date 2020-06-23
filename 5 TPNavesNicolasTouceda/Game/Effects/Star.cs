@@ -16,10 +16,10 @@ namespace Game
     {
         private Image img;
         float speed;
-
+        int size;
         public Star(Image img, float speed)
         {
-            int size = (0.16 * speed).FloorToInt().Max(1);
+            size = (0.16 * speed).FloorToInt().Max(1);
             this.img = new Bitmap(img, new Size(size, size));
             this.speed = speed;
 
@@ -37,6 +37,8 @@ namespace Game
             X -= speed * deltaTime;
             Visible = true;
         }
+
+
 
         public override void DrawOn(Graphics graphics)
         {

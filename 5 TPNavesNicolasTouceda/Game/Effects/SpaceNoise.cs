@@ -49,7 +49,7 @@ namespace Game
         {
             FillScreenTiled(graphics);
         }
-
+        
         public void FillScreenTiled(Graphics graphics)
         {
             //Redondeo el numero

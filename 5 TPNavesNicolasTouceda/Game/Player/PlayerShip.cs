@@ -10,6 +10,7 @@ using Engine.Events;
 using System.Windows.Forms;
 using Engine.Extensions;
 using Engine.Utils;
+using System.Diagnostics;
 
 namespace Game
 {
@@ -38,7 +39,7 @@ namespace Game
             cannon.Center = Center;
             cannon.Right = Right;
             cannon.Visible = false;
-            AddChild(cannon);
+            AddChild(cannon);//No hace falta, yo como nave conosco mi cañon
         }
 
         public bool ShieldActivated
@@ -72,7 +73,12 @@ namespace Game
 
         public override void Update(float deltaTime)
         {
+            var sw = new Stopwatch();
             float s = speed.MinMax(MAX_SPEED, MIN_SPEED);
+
+
+
+            sw.Restart();
             if (pressedKeys.Contains(Keys.Up)
                 || pressedKeys.Contains(Keys.W))
             {
@@ -102,14 +108,22 @@ namespace Game
             {
                 direction.X = 0;
             }
-
+            var sw1 = sw.ElapsedMilliseconds;
 
             X += direction.X * deltaTime;
             Y += direction.Y * deltaTime;
+            sw.Restart();
             KeepInsideOwner();
+            var sw2 = sw.ElapsedMilliseconds;
 
-            
+
+            //CheckForPowerUps Tiene un problema
+            sw.Restart();
             CheckForPowerUps();
+            var sw3 = sw.ElapsedMilliseconds;
+
+
+            sw.Restart();
             if (CheckForCollision())
             {
                 if (!shieldActivated)
@@ -127,7 +141,18 @@ namespace Game
             {
                 Shoot();
             }
+
+            var sw4 = sw.ElapsedMilliseconds;
+
+
+
+
+
+
+
         }
+
+
 
         private bool CheckForCollision()
         {
