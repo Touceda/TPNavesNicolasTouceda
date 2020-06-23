@@ -73,11 +73,10 @@ namespace Game
 
         public override void Update(float deltaTime)
         {
-            var sw = new Stopwatch();
             float s = speed.MinMax(MAX_SPEED, MIN_SPEED);
 
 
-
+            var sw = new Stopwatch();
             sw.Restart();
             if (pressedKeys.Contains(Keys.Up)
                 || pressedKeys.Contains(Keys.W))
@@ -108,16 +107,20 @@ namespace Game
             {
                 direction.X = 0;
             }
+
             var sw1 = sw.ElapsedMilliseconds;
+
+
 
             X += direction.X * deltaTime;
             Y += direction.Y * deltaTime;
+
+
             sw.Restart();
             KeepInsideOwner();
             var sw2 = sw.ElapsedMilliseconds;
 
 
-            //CheckForPowerUps Tiene un problema
             sw.Restart();
             CheckForPowerUps();
             var sw3 = sw.ElapsedMilliseconds;
@@ -144,40 +147,68 @@ namespace Game
 
             var sw4 = sw.ElapsedMilliseconds;
 
-
-
-
-
-
-
         }
 
 
 
         private bool CheckForCollision()
         {
-            IEnumerable<EnemyShip> collisions = AllObjects
-                .Where((m) => CollidesWith(m))
-                .Select((m) => m as EnemyShip)
-                .Where((m) => m != null);
-            if (collisions.Count() == 0) return false;
-            foreach (EnemyShip enemy in collisions)
+
+            EnemyShip[] EnemyCollisions = AllObjects.Select(m => m as EnemyShip).Where(m => m != null).ToArray();
+
+            if (EnemyCollisions.Count() == 0) return false;
+
+            foreach (var enemy in EnemyCollisions)
             {
-                enemy.Explode();
+                if (CollidesWith(enemy))
+                {
+                    enemy.Explode();
+                    return true;
+                }
             }
-            return true;
+            return false;
+
+            //IEnumerable<EnemyShip> collisions = AllObjects
+            //    .Where((m) => CollidesWith(m))
+            //    .Select((m) => m as EnemyShip)
+            //    .Where((m) => m != null);
+            //if (collisions.Count() == 0) return false;
+            //foreach (EnemyShip enemy in collisions)
+            //{
+            //    enemy.Explode();
+            //}
+            //return true;
         }
 
         private void CheckForPowerUps()
         {
-            IEnumerable<PowerUp> pups = AllObjects
-                .Where((m) => CollidesWith(m))
-                .Select((m) => m as PowerUp);
+
+            PowerUp[] pups = AllObjects.Select(m => m as PowerUp).ToArray();
 
             foreach (PowerUp pup in pups)
             {
-                if (pup != null) { pup.ApplyOn(this); }
+                if (pup != null)
+                {
+                    if (CollidesWith(pup))
+                    {
+                        pup.ApplyOn(this);
+                    }
+                }
             }
+
+
+            //IEnumerable<PowerUp> pups = AllObjects
+            //    .Where((m) => CollidesWith(m))
+            //    .Select((m) => m as PowerUp);
+
+            //foreach (PowerUp pup in pups)
+            //{
+            //    if (pup != null)
+            //    {
+            //            pup.ApplyOn(this);
+            //    }
+            //}
+
         }
 
         private void KeepInsideOwner()
@@ -194,6 +225,7 @@ namespace Game
             IEnumerable<Cannon> cannons = AllObjects
                 .Select((m) => m as Cannon)
                 .Where((m) => m != null);
+
             foreach (Cannon cannon in cannons)
             {
                 cannon.Shoot();
