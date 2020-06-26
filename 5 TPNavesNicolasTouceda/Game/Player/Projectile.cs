@@ -18,25 +18,28 @@ namespace Game
         public Projectile()
         {
             img = Properties.Resources.projectile;
-
             Extent = img.Size;
         }
 
         public override void Update(float deltaTime)
         {
-            X += speed * deltaTime;
-            
+            if (Position.X > 1600)
+            {
+                Delete();
+            }
+            X += speed * deltaTime;          
             CheckForCollision();
         }
 
         private void CheckForCollision()//Aplicar la misma optimizacion que la nave
         {
-            IEnumerable<EnemyShip> collisions = AllObjects
-                .Where((m) => CollidesWith(m))
-                .Select((m) => m as EnemyShip);
-            foreach (EnemyShip enemy in collisions)
+            EnemyShip[] EnemyCollisions = AllObjects.Select(m => m as EnemyShip).Where(m => m != null).ToArray();
+
+            if (EnemyCollisions.Count() == 0) return;
+
+            foreach (var enemy in EnemyCollisions)
             {
-                if (enemy != null)
+                if (CollidesWith(enemy))
                 {
                     enemy.Explode();
                     Delete();
