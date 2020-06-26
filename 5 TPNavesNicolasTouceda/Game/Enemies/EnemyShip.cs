@@ -7,21 +7,22 @@ using System.Threading.Tasks;
 using System.Drawing;
 using Engine;
 using Engine.Utils;
+using System.Runtime.Remoting.Services;
 
 namespace Game
 {
     public class EnemyShip : GameObject
     {
         private static Random rnd = new Random();
-
+        //private static bool flag = false;
         private int shipIndex;
         private EnemyBehavior behavior;
-        
+      
         public EnemyShip(int shipIndex, EnemyBehavior behavior)
         {    
             this.shipIndex = shipIndex;
             this.behavior = behavior;
-            MiImagen = LoadImage();//Va a guardar mi Imagen de este objeto particular
+            this.MiImagen = LoadImage() ;//Va a guardar mi Imagen de este objeto particular
 
             Visible = false;
         }
@@ -65,13 +66,18 @@ namespace Game
         {
             graphics.DrawImage(MiImagen, Bounds);
         }
+
         private Image LoadImage()
         {
-            Image[] ships = Spritesheet.Load(@"Resources\shipsheetparts.png", new Size(200, 200));//Es png?
-            ships[shipIndex].RotateFlip(RotateFlipType.Rotate270FlipNone);
-            Image result = ships[shipIndex];
-            Extent = new SizeF(result.Size.Width / 2, result.Size.Height / 2);
-            return result;
+            Image ThisImage = Spritesheet.Ships[shipIndex];
+            Extent = new SizeF(ThisImage.Size.Width / 2, ThisImage.Size.Height / 2);
+            return ThisImage;
+
+            //Image[] ships = Spritesheet.Load(@"Resources\shipsheetparts.png", new Size(200, 200));
+            //ships[shipIndex].RotateFlip(RotateFlipType.Rotate270FlipNone);
+            //Image result = ships[shipIndex];
+            //Extent = new SizeF(result.Size.Width / 2, result.Size.Height / 2);
+            //return result;
         }
     }
 }

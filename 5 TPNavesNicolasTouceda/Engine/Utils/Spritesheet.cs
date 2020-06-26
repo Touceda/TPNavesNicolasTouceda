@@ -5,20 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Drawing;
+using System.IO.IsolatedStorage;
 
 namespace Engine.Utils
 {
     public class Spritesheet
     {
-        public static Image[] Load(string fileName, Size size)//Devuelve un array de imagenes con sus nombres
+        public static Image[] Load(string fileName, Size size)
         {
             return new Spritesheet(fileName).CutPieces(size);
         }
 
-        public static Image[] Load(Image original, Size size)
-        {
-            return new Spritesheet(original).CutPieces(size);
-        }
+        //public static Image[] Load(Image original, Size size)
+        //{
+        //    return new Spritesheet(original).CutPieces(size);
+        //}
 
         private Image original;
         
@@ -30,18 +31,11 @@ namespace Engine.Utils
         }
 
 
-
-
-        private bool LasPiesasYaFueronRecortadas = false;
         private List<Image> pieces = new List<Image>();
+        public static Image[] Ships;
 
         public Image[] CutPieces(Size size)//crea bitmaps con las imagenes y las devuelve
         {
-            if (LasPiesasYaFueronRecortadas == true) 
-            {
-                return pieces.ToArray();
-            }
-
             int rows = original.Width / size.Width;
             int cols = original.Height / size.Height;
             for (int j = 0; j < cols; j++)
@@ -51,14 +45,28 @@ namespace Engine.Utils
                     Image temp = new Bitmap(size.Width, size.Height);
                     Graphics graphics = Graphics.FromImage(temp);
                     graphics.DrawImage(original,
-                        new Rectangle(0, 0, size.Width, size.Height),
-                        new Rectangle(i * size.Width, j * size.Height, size.Width, size.Height),
-                        GraphicsUnit.Pixel);
-                    //graphics.Dispose();
+                    new Rectangle(0, 0, size.Width, size.Height),
+                    new Rectangle(i * size.Width, j * size.Height, size.Width, size.Height),
+                    GraphicsUnit.Pixel);
                     pieces.Add(temp);
                 }
             }
-            LasPiesasYaFueronRecortadas = true;
+
+            int count = 0;
+            foreach (var ship in pieces)
+            {
+                ship.RotateFlip(RotateFlipType.Rotate270FlipNone);
+
+                if (count == 33)
+                {
+                    ship.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    ship.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    ship.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                }
+                count++;
+            }
+
+            Ships = pieces.ToArray();
             return pieces.ToArray();
         }
     }

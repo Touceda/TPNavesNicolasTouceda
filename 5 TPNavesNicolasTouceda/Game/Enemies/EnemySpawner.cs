@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using System.Drawing;
 using Engine;
+using Engine.Utils;
+using Game.Properties;
 
 namespace Game
 {
@@ -15,11 +17,11 @@ namespace Game
         private int shipIndex;
         private bool active = false;
         private EnemyBehavior behavior;
-
         private int last = Environment.TickCount;
 
+
         public EnemySpawner(int shipIndex, int emmisionRate, EnemyBehavior behavior)
-        {
+        {       
             this.shipIndex = shipIndex;
             this.emmisionInterval = emmisionRate;
             this.behavior = behavior;
@@ -49,12 +51,10 @@ namespace Game
             if (now - last > emmisionInterval)
             {
                 last = now;
-                
-                EnemyShip ship = new EnemyShip(shipIndex, behavior);
+                EnemyShip ship = new EnemyShip(shipIndex, behavior) ;
                 ship.Center = Center;
                 world.AddChild(ship);
             }
         }
-
     }
 }
