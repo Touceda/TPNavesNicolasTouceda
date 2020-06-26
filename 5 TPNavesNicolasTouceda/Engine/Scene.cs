@@ -51,7 +51,7 @@ namespace Engine
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
             world.FullDrawOn(e.Graphics);
-        }
+         }
 
         private void steppingTimer_Tick(object sender, EventArgs e) //Actualiza el mundo y actualiza el Tally
         {
@@ -61,6 +61,8 @@ namespace Engine
             {
                 tally.RegisterUpdate();
                 tally.RegisterInstances(world.AllChildren.LongCount(), world.StarList.LongCount()) ;//Recibe la cantidad de instancias en AllChildren
+
+
                 world.FullUpdate(delta, true);
                 world.UpdateStars(delta);
                 lastStep = now;

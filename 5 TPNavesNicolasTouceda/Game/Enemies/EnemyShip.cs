@@ -18,11 +18,11 @@ namespace Game
         private EnemyBehavior behavior;
         
         public EnemyShip(int shipIndex, EnemyBehavior behavior)
-        {
-            MiImagen = LoadImage();//Va a guardar mi Imagen de este objeto particular
+        {    
             this.shipIndex = shipIndex;
             this.behavior = behavior;
-            
+            MiImagen = LoadImage();//Va a guardar mi Imagen de este objeto particular
+
             Visible = false;
         }
 

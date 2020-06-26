@@ -29,7 +29,7 @@ namespace Game
             CheckForCollision();
         }
 
-        private void CheckForCollision()
+        private void CheckForCollision()//Aplicar la misma optimizacion que la nave
         {
             IEnumerable<EnemyShip> collisions = AllObjects
                 .Where((m) => CollidesWith(m))

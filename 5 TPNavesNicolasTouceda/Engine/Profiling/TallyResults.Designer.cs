@@ -47,7 +47,6 @@
             this.scene.Name = "scene";
             this.scene.Size = new System.Drawing.Size(682, 303);
             this.scene.TabIndex = 0;
-            this.scene.Load += new System.EventHandler(this.scene_Load);
             this.scene.Resize += new System.EventHandler(this.scene_Resize);
             // 
             // TallyResults

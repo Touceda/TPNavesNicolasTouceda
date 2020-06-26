@@ -89,7 +89,7 @@ namespace Engine
             }
         }
 
-        public RectangleF Bounds// propiedad de mis bounds
+        public RectangleF Bounds//propiedad de mis bounds
         {
             get { return bounds; }
             set { bounds = value; }
@@ -253,7 +253,6 @@ namespace Engine
             StarList = newListStar;
 
         }
-
 
         public void Delete()
         {

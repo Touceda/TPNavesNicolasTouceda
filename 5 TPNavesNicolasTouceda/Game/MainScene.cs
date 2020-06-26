@@ -62,9 +62,5 @@ namespace Game
                 tally.Count, tally.InstanceCounter.LastOrDefault(), Environment.TickCount - startTime);
         }
 
-        private void scene_Load(object sender, EventArgs e)//No hace nada?
-        {
-
-        }
     }
 }

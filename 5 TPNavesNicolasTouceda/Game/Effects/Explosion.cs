@@ -32,9 +32,9 @@ namespace Game
                 explosion.Center = point;
                 world.AddChild(explosion);
             }
-            world.Play(rnd.NextDouble() > 0.5 ?
-                Properties.Resources.explosion1 :
-                Properties.Resources.explosion2);
+            //world.Play(rnd.NextDouble() > 0.5 ?
+            //    Properties.Resources.explosion1 :
+            //    Properties.Resources.explosion2);
         }
 
         private float alpha = 1;

@@ -23,7 +23,8 @@ namespace Game
 
             MainScene main = new MainScene();//Creo la Scene y la mando a correr
             Application.Run(main);
-            Application.Run(new TallyResults(main.scene.Tally));//Creo la Scene Tally, la mando a correr y le paso info de mi main scene principal
+
+          /*Application.Run(new TallyResults(main.scene.Tally));*///Creo la Scene Tally, la mando a correr y le paso info de mi main scene principal
         }
     }
 }

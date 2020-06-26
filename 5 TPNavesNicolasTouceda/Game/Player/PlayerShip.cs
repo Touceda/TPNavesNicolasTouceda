@@ -146,14 +146,12 @@ namespace Game
             }
 
             var sw4 = sw.ElapsedMilliseconds;
-
         }
 
 
 
         private bool CheckForCollision()
         {
-
             EnemyShip[] EnemyCollisions = AllObjects.Select(m => m as EnemyShip).Where(m => m != null).ToArray();
 
             if (EnemyCollisions.Count() == 0) return false;
@@ -222,7 +220,7 @@ namespace Game
 
         private void Shoot()
         {
-            IEnumerable<Cannon> cannons = AllObjects
+             IEnumerable<Cannon> cannons = AllObjects
                 .Select((m) => m as Cannon)
                 .Where((m) => m != null);
 
