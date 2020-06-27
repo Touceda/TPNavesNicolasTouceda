@@ -44,6 +44,10 @@ namespace Game
 
         public override void Update(float deltaTime)
         {
+            if (Position.X == 0 )
+            {
+                Delete();
+            }
             behavior.Update(this, deltaTime);
             Visible = true;
         }

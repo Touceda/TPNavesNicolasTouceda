@@ -23,7 +23,7 @@ namespace Game
 
         public override void Update(float deltaTime)
         {
-            if (Position.X > 1600)
+            if (Position.X > 1650)
             {
                 Delete();
             }

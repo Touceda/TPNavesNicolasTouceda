@@ -13,8 +13,10 @@ namespace Game
     public class Explosion : GameObject
     {
         private static Random rnd = new Random();
+        
 
         public static void Burst(GameObject world, PointF point, 
+            
             int amount = 2000, 
             int minMagnitude = 50,
             int maxMagnitude = 300,
@@ -22,6 +24,8 @@ namespace Game
             float deltaSize = 2,
             float deltaAlpha = -2)
         {
+            List<GameObject> Explotion = new List<GameObject>();
+
             for (int i = 0; i < amount; i++)
             {
                 float angle = rnd.Next(0, 360);
@@ -30,7 +34,21 @@ namespace Game
                 float a = (float)Math.Cos(angle) * magnitude;
                 GameObject explosion = new Explosion(new PointF(a, o), initialSize, deltaSize, deltaAlpha);
                 explosion.Center = point;
-                world.AddChild(explosion);
+                Explotion.Add(explosion);
+
+                //Nuevo Almacenamiento de Explosion
+                if (world.countExplotion == 3)
+                {
+                    world.countExplotion = 1;
+                }
+                switch (world.countExplotion)
+                {
+                    case 1: { world.Explosion1 = Explotion; break; }
+                    case 2: { world.Explosion2 = Explotion; break; }
+                    default:
+                        break;
+                }
+                world.countExplotion++;
             }
             //world.Play(rnd.NextDouble() > 0.5 ?
             //    Properties.Resources.explosion1 :
@@ -66,13 +84,19 @@ namespace Game
             X += speed.X * deltaTime;
             Y += speed.Y * deltaTime;
         }
-
+        //Guardo el pen
+        public static Brush[,] Brushes = new Brush[255,255];
         public override void DrawOn(Graphics graphics)
         {
             int a = (alpha * 255).RoundedToInt().MinMax(255, 0);
             int g = (255 - a).MinMax(200, 50);
-            Pen pen = new Pen(Color.FromArgb(a, 255, g, 0));
-            graphics.FillRectangle(pen.Brush, Bounds);
+
+            if (Brushes[a, g] == null) 
+            {
+                Brushes[a, g] = new Pen(Color.FromArgb(a, 255, g, 0)).Brush;
+            }
+          
+            graphics.FillRectangle(Brushes[a,g], Bounds);
         }
     }
 }

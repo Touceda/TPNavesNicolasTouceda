@@ -136,7 +136,7 @@ namespace Game
                     Explosion.Burst(Parent, TopRight, 500, 30, 400, 1, 3, -1);
                     Explosion.Burst(Parent, BottomLeft, 500, 30, 400, 1, 3, -1);
                     Explosion.Burst(Parent, BottomRight, 500, 30, 400, 1, 3, -1);
-                    Delete();
+
                 }
             }
             else if (pressedKeys.Contains(Keys.Space)
@@ -165,17 +165,6 @@ namespace Game
                 }
             }
             return false;
-
-            //IEnumerable<EnemyShip> collisions = AllObjects
-            //    .Where((m) => CollidesWith(m))
-            //    .Select((m) => m as EnemyShip)
-            //    .Where((m) => m != null);
-            //if (collisions.Count() == 0) return false;
-            //foreach (EnemyShip enemy in collisions)
-            //{
-            //    enemy.Explode();
-            //}
-            //return true;
         }
 
         private void CheckForPowerUps()
@@ -193,20 +182,6 @@ namespace Game
                     }
                 }
             }
-
-
-            //IEnumerable<PowerUp> pups = AllObjects
-            //    .Where((m) => CollidesWith(m))
-            //    .Select((m) => m as PowerUp);
-
-            //foreach (PowerUp pup in pups)
-            //{
-            //    if (pup != null)
-            //    {
-            //            pup.ApplyOn(this);
-            //    }
-            //}
-
         }
 
         private void KeepInsideOwner()

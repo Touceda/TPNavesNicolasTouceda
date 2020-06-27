@@ -59,12 +59,14 @@ namespace Engine
             float delta = (now - lastStep) / 1000;
             if (delta > 0)
             {
+                long InstancesParticles = world.Explosion1.LongCount() + world.Explosion2.LongCount();
                 tally.RegisterUpdate();
-                tally.RegisterInstances(world.AllChildren.LongCount(), world.StarList.LongCount()) ;//Recibe la cantidad de instancias en AllChildren
+                tally.RegisterInstances(world.AllChildren.LongCount(), world.StarList.LongCount(), InstancesParticles) ;//Recibe la cantidad de instancias en AllChildren
 
 
                 world.FullUpdate(delta, true);
                 world.UpdateStars(delta);
+                world.UpdateExplotionParticles(delta);
                 lastStep = now;
                 Refresh();
             }

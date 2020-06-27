@@ -8,7 +8,7 @@ using Engine.Extensions;
 using System.IO;
 using NAudio.Wave;
 using System.Threading;
-
+using System.Windows.Forms;
 
 namespace Engine
 {
@@ -16,13 +16,17 @@ namespace Engine
     {
         public List<GameObject> StarList = new List<GameObject>();
         public bool saliDeEscena = false;
-
-
         private List<GameObject> children = new List<GameObject>();
         private GameObject parent;
         private RectangleF bounds = new RectangleF(0, 0, 30, 40);
         private EventHandler eventHandler = new EventHandler();
         private bool visible = true;//Eliminar?
+
+        public int countExplotion = 1;
+        public List<GameObject> Explosion1 = new List<GameObject>();
+        public List<GameObject> Explosion2 = new List<GameObject>();
+
+
 
         public List<GameObject> Children //Devuelve una lista de objetos
         {
@@ -221,7 +225,7 @@ namespace Engine
             bounds = new RectangleF(bounds.Left + x, bounds.Top + y, bounds.Width, bounds.Height);
             children.ForEach((m) => m.MoveDelta(x, y));
         }
-        
+
         public void AddChild(GameObject child)// Añade objetos a la lista Child y guarda el objeto como Parent
         {
             children.Add(child);
@@ -249,7 +253,7 @@ namespace Engine
 
         public void RemoveStar()//
         {
-           var newListStar = StarList.Where((x => x.saliDeEscena == false)).ToList() ;
+            var newListStar = StarList.Where((x => x.saliDeEscena == false)).ToList();
             StarList = newListStar;
 
         }
@@ -274,7 +278,7 @@ namespace Engine
             {
                 return Image.GetPixel(point.X, point.Y);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return Color.Transparent;
             }
@@ -288,7 +292,7 @@ namespace Engine
             {
                 for (int y = 0; y < img.Height; y++)
                 {
-                    if (img.GetPixel(x,y).A > 0)
+                    if (img.GetPixel(x, y).A > 0)
                     {
                         Point point = new Point(x, y);
                         if (globalCoordinates)
@@ -368,6 +372,25 @@ namespace Engine
             children.ToList().ForEach((m) => m.FullUpdate(deltaTime));
         }
 
+        internal void UpdateExplotionParticles(float deltaTime)
+        {
+            if (Explosion1.Count() > 1)
+            {
+                foreach (var particle in Explosion1)
+                {
+                    particle.Update(deltaTime);
+                }
+            }
+
+            if (Explosion2.Count() > 1)
+            {
+                foreach (var particle in Explosion2)
+                {
+                    particle.Update(deltaTime);
+                }
+            }
+        }
+
         internal void UpdateStars(float deltaTime)
         {
 
@@ -396,19 +419,28 @@ namespace Engine
             foreach (var obj in children)
             {
                 obj.DrawOn(graphics);
-                //obj.DrawBoundsOn(graphics);
             }
 
             foreach (var star in StarList)
             {
                 star.DrawOn(graphics);
-                //star.DrawBoundsOn(graphics);
             }
 
-            //if (!visible) return;
-            //DrawOn(graphics);
-            ////DrawBoundsOn(graphics);
-            //children.ForEach((m) => m.FullDrawOn(graphics));
+            if (Explosion1.Count() > 1)
+            {
+                foreach (var particle in Explosion1)
+                {
+                    particle.DrawOn(graphics);
+                }
+            }
+
+            if (Explosion2.Count() > 1)
+            {
+                foreach (var particle in Explosion2)
+                {
+                    particle.DrawOn(graphics);
+                }
+            }
         }
 
         private void DrawBoundsOn(Graphics graphics)//Dibuja la HitBox del personaje

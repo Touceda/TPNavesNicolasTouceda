@@ -37,7 +37,7 @@ namespace Game
             GameObject powerUp = ChoosePowerUp(ship);
             powerUp.Center = ship.Center;
             ship.AddChild(powerUp);
-            Play(Properties.Resources.start);
+
             Delete();
         }
 

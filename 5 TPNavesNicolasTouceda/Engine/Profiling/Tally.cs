@@ -41,9 +41,9 @@ namespace Engine.Profiling
         public long MaxDraw { get { return CalculateMax(DrawDurations); } }
 
 
-        internal void RegisterInstances(long instances,long instancesStars)
+        internal void RegisterInstances(long instances,long instancesStars, long instancesParticles)
         {
-            var totalInstances = instances + instancesStars;
+            var totalInstances = instances + instancesStars + instancesParticles;
             instanceCounter.Add(totalInstances);
         }
 
