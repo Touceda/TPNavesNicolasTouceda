@@ -13,9 +13,9 @@ namespace Game
     public class Explosion : GameObject
     {
         private static Random rnd = new Random();
-        
 
-        public static void Burst(GameObject world, PointF point, 
+   
+        public static void Burst(GameObject world, PointF point,
             
             int amount = 2000, 
             int minMagnitude = 50,
@@ -50,13 +50,13 @@ namespace Game
                 }
                 world.countExplotion++;
             }
-            //world.Play(rnd.NextDouble() > 0.5 ?
-            //    Properties.Resources.explosion1 :
-            //    Properties.Resources.explosion2);
+            world.Play(rnd.NextDouble() > 0.5 ?
+                Properties.Resources.explosion1 :
+                Properties.Resources.explosion2);
         }
 
-        private float alpha = 1;
 
+        private float alpha = 1;
         private PointF speed;
         private float deltaSize;
         private float deltaAlpha;

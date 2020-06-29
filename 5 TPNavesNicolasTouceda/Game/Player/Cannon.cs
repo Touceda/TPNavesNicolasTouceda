@@ -78,7 +78,7 @@ namespace Game
                 projectile.Center = Center;
                 projectile.Left = Right;
                 Root.AddChild(projectile);
-                //Play(Properties.Resources.laser);
+                Play(Properties.Resources.laser);
             }
         }
 
